@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ComicCraft - Preview</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .comic-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(300px, 1fr)
+            );
+            gap: 25px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .panel-title {
+            padding: 15px;
+            background: #222;
+            color: white;
+        }
+
+        .panel-title h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .panel-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .panel-content {
+            padding: 18px;
+        }
+
+        .panel-content h3 {
+            margin: 12px 0 5px;
+            font-size: 15px;
+        }
+
+        .panel-content p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 22px;
+            margin: 5px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .home-button {
+            background: #222;
+            color: white;
+        }
+
+        .pdf-button {
+            background: #444;
+            color: white;
+        }
+
+        .button:hover {
+            opacity: 0.85;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .comic-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>ComicCraft</h1>
+
+        <p>
+            Your AI Generated Comic
+        </p>
+
+    </div>
+
+
+    {% if layout %}
+
+    <div class="comic-grid">
+
+
+        {% for panel in layout %}
+
+
+        <div class="panel">
+
+
+            <div class="panel-title">
+
+                <h2>
+
+                    Panel
+                    {{ panel.panel_number }}
+
+                    -
+
+                    {{ panel.title }}
+
+                </h2>
+
+            </div>
+
+
+            {% if panel.image_path %}
+
+            <img
+                src="{{ panel.image_path }}"
+                alt="Comic Panel"
+                class="panel-image"
+            >
+
+            {% endif %}
+
+
+            <div class="panel-content">
+
+
+                {% if panel.scene_description %}
+
+                <h3>Scene</h3>
+
+                <p>
+                    {{ panel.scene_description }}
+                </p>
+
+                {% endif %}
+
+
+                {% if panel.caption %}
+
+                <h3>Caption</h3>
+
+                <p>
+                    {{ panel.caption }}
+                </p>
+
+                {% endif %}
+
+
+                {% if panel.narration %}
+
+                <h3>Narration</h3>
+
+                <p>
+                    {{ panel.narration }}
+                </p>
+
+                {% endif %}
+
+
+                {% if panel.dialogue %}
+
+                <h3>Dialogue</h3>
+
+                <p>
+                    {{ panel.dialogue }}
+                </p>
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    <div class="buttons">
+
+        <a
+            href="/"
+            class="button home-button"
+        >
+            Create Another Comic
+        </a>
+
+
+        <a
+            href="/export/pdf"
+            class="button pdf-button"
+        >
+            Export PDF
+        </a>
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="empty">
+
+        <h2>
+            No comic panels available.
+        </h2>
+
+        <p>
+            Please create a comic first.
+        </p>
+
+        <a
+            href="/"
+            class="button home-button"
+        >
+            Go Back
+        </a>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
